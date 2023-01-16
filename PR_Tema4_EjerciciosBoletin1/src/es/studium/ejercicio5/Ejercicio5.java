@@ -1,18 +1,55 @@
 package es.studium.ejercicio5;
 import java.awt.*;
-import java.awt.event.*;
 
 public class Ejercicio5 {
 	
 	
 	// Atributos:
 	Frame window = new Frame("Vehículos");
-	Label l1,l2;
-	Checkbox c1, c2;
-	CheckboxGroup cbg;
 	
+	CheckboxGroup chkgrGrupo = new CheckboxGroup();
+	Label l1 = new Label("Tipo de motorización:");
+	Checkbox chk1 = new Checkbox("Gasolina", false, chkgrGrupo);
+	Checkbox chk2 = new Checkbox("Diésel", false, chkgrGrupo);
+	Checkbox chk3 = new Checkbox("Híbrido", false, chkgrGrupo);
+	Checkbox chk4 = new Checkbox("Eléctrico", false, chkgrGrupo);
+	Label l2 = new Label("Número de puertas:");
+	Checkbox chk5 = new Checkbox("3 puertas", false, chkgrGrupo);
+	Checkbox chk6 = new Checkbox("4 puertas", false, chkgrGrupo);
+	Checkbox chk7 = new Checkbox("5 puertas", false, chkgrGrupo);
+	Label l3 = new Label("Pintura Metalizada:");
+	Checkbox chk8 = new Checkbox("Sí", false, chkgrGrupo);
+	Checkbox chk9 = new Checkbox("No", false, chkgrGrupo);
+	Panel pnlBtn = new Panel();
 	
 	Button btnCalcular = new Button("Calcular presupuesto");
+	
+	Ejercicio5() 
+	{
+		window.setSize(400, 300);
+		window.setLayout(new FlowLayout());
+		window.add(l1);
+		window.add(chk1);
+		window.add(chk2);
+		window.add(chk3);
+		window.add(chk4);
+		window.add(l2);
+		window.add(chk5);
+		window.add(chk6);
+		window.add(chk7);
+		window.add(l3);
+		window.add(chk8);
+		window.add(chk9);
+		window.add(pnlBtn);
+		
+		pnlBtn.add(btnCalcular);	
+		window.setLocationRelativeTo(null);
+
+		window.setVisible(true);
+		
+		
+		
+	}
 
 	public static void main(String[] args) 
 	{

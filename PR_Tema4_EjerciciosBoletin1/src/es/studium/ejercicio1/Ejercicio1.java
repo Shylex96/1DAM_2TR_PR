@@ -39,7 +39,7 @@ public class Ejercicio1
 		window.add(txtSpace4);
 		
 		txtSpace5.setEnabled(false);
-		//txtSpace5.setEditable(false); <--- Haría lo mismo que el setEnable pero dejaría clicar el campo.
+		//txtSpace5.setEditable(false); <--- HarÃ­a lo mismo que el setEnable pero dejarÃ­a clicar el campo.
 		window.add(btnAceptar);
 		window.add(txtSpace5);
 

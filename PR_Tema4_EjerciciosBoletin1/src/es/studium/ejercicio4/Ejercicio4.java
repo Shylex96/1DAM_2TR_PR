@@ -4,6 +4,7 @@ import java.awt.Button;
 import java.awt.Checkbox;
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.Panel;
 
 public class Ejercicio4 {
 	
@@ -21,24 +22,33 @@ public class Ejercicio4 {
 	Checkbox caja10 = new Checkbox("Deportes de Vela");
 		
 	Button btnComprobar = new Button("Comprobar");
+	Panel pnlCheckBoxes = new Panel();
+	Panel pnlBtn = new Panel();
 	
 	Ejercicio4() 
 	{
-		window.setSize(400, 300);
-		window.setLayout(new FlowLayout());
-		window.add(caja1);
-		window.add(caja2);
-		window.add(caja3);
-		window.add(caja4);
-		window.add(caja5);
-		window.add(caja6);
-		window.add(caja7);
-		window.add(caja8);
-		window.add(caja9);
-		window.add(caja10);
+		window.setSize(350, 130);
+		pnlCheckBoxes.setLayout(new FlowLayout());
+		pnlCheckBoxes.add(caja1);
+		pnlCheckBoxes.add(caja2);
+		pnlCheckBoxes.add(caja3);
+		pnlCheckBoxes.add(caja4);
+		pnlCheckBoxes.add(caja5);
+		pnlCheckBoxes.add(caja6);
+		pnlCheckBoxes.add(caja7);
+		pnlCheckBoxes.add(caja8);
+		pnlCheckBoxes.add(caja9);
+		pnlCheckBoxes.add(caja10);
 		
-		window.add(btnComprobar);	
+		pnlBtn.setLayout(new FlowLayout());
+		pnlBtn.add(btnComprobar);
+		
+		window.add(pnlCheckBoxes, "Center");
+		window.add(pnlBtn, "South");
+		
+		
 		window.setLocationRelativeTo(null);
+		window.setResizable(false);
 
 		window.setVisible(true);
 		
