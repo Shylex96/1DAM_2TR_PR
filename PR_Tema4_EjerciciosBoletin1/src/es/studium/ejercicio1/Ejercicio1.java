@@ -1,7 +1,6 @@
 package es.studium.ejercicio1;
 
 import java.awt.Button;
-import java.awt.Color;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Label;
