@@ -9,7 +9,7 @@ import java.awt.TextField;
 public class Ejercicio2
 {
 		// Atributos:
-		Frame window = new Frame("Conversión de Temperaturas");
+		Frame window = new Frame("ConversiÃ³n de Temperaturas");
 		Label lblCelsius = new Label("Celsius");
 		Label lblFahrenheit = new Label("Fahrenheit");
 		TextField txtSpace1 = new TextField(10);

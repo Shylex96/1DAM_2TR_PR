@@ -7,19 +7,21 @@ public class Ejercicio5 {
 	// Atributos:
 	Frame window = new Frame("Vehículos");
 	
-	CheckboxGroup chkgrGrupo = new CheckboxGroup();
+	CheckboxGroup chkgrGrupo1 = new CheckboxGroup();
+	CheckboxGroup chkgrGrupo2 = new CheckboxGroup();
+	CheckboxGroup chkgrGrupo3 = new CheckboxGroup();
 	Label l1 = new Label("Tipo de motorización:");
-	Checkbox chk1 = new Checkbox("Gasolina", false, chkgrGrupo);
-	Checkbox chk2 = new Checkbox("Diésel", false, chkgrGrupo);
-	Checkbox chk3 = new Checkbox("Híbrido", false, chkgrGrupo);
-	Checkbox chk4 = new Checkbox("Eléctrico", false, chkgrGrupo);
+	Checkbox chk1 = new Checkbox("Gasolina", false, chkgrGrupo1);
+	Checkbox chk2 = new Checkbox("Diésel", false, chkgrGrupo1);
+	Checkbox chk3 = new Checkbox("Híbrido", false, chkgrGrupo1);
+	Checkbox chk4 = new Checkbox("Eléctrico", false, chkgrGrupo1);
 	Label l2 = new Label("Número de puertas:");
-	Checkbox chk5 = new Checkbox("3 puertas", false, chkgrGrupo);
-	Checkbox chk6 = new Checkbox("4 puertas", false, chkgrGrupo);
-	Checkbox chk7 = new Checkbox("5 puertas", false, chkgrGrupo);
+	Checkbox chk5 = new Checkbox("3 puertas", false, chkgrGrupo2);
+	Checkbox chk6 = new Checkbox("4 puertas", false, chkgrGrupo2);
+	Checkbox chk7 = new Checkbox("5 puertas", false, chkgrGrupo2);
 	Label l3 = new Label("Pintura Metalizada:");
-	Checkbox chk8 = new Checkbox("Sí", false, chkgrGrupo);
-	Checkbox chk9 = new Checkbox("No", false, chkgrGrupo);
+	Checkbox chk8 = new Checkbox("Sí", false, chkgrGrupo3);
+	Checkbox chk9 = new Checkbox("No", false, chkgrGrupo3);
 	Panel pnlBtn = new Panel();
 	
 	Button btnCalcular = new Button("Calcular presupuesto");
