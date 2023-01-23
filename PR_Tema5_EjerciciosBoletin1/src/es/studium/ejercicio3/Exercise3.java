@@ -76,11 +76,12 @@ public class Exercise3 implements ActionListener, WindowListener {
 		if (e.getSource().equals(btnCalcular)) {
 			if ( (!txtCantidad.getText().equals("")) | (!txtPorcentaje.getText().equals("")) )
 			{
-				double cantidad = Integer.parseInt(txtCantidad.getText());
-				double porcentaje = Integer.parseInt(txtPorcentaje.getText());
+				float cantidad = Float.parseFloat(txtCantidad.getText());
+				float porcentaje = Float.parseFloat(txtPorcentaje.getText());
 
-				double resultado = ((cantidad * porcentaje) / 100);
-				txtResultado.setText(resultado+"€");
+				float resultado = ((cantidad * porcentaje) / 100f);
+				txtResultado.setText(resultado+"");
+				// txtResultado.setText(String.format("%.2f", resultado));
 
 			}
 		}
