@@ -21,7 +21,7 @@ public class Exercise4 implements ActionListener, WindowListener
 	Checkbox caja4 = new Checkbox("Leer");
 	Checkbox caja5 = new Checkbox("Ir al Cine");
 	Checkbox caja6 = new Checkbox("Bailar");
-	Checkbox caja7 = new Checkbox("Fútbol");
+	Checkbox caja7 = new Checkbox("FÃºtbol");
 	Checkbox caja8 = new Checkbox("Tenis");
 	Checkbox caja9 = new Checkbox("Baloncesto");
 	Checkbox caja10 = new Checkbox("Deportes de Vela");
@@ -108,7 +108,7 @@ public class Exercise4 implements ActionListener, WindowListener
 			System.out.print("Bailar \n");
 		}
 		if (caja7.getState()) {
-			System.out.print("Fútbol \n");
+			System.out.print("Fï¿½tbol \n");
 		}
 		if (caja8.getState()) {
 			System.out.print("Tenis \n");

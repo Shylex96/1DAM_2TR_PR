@@ -2,6 +2,8 @@ package es.studium.ejercicio11;
 
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.Dialog;
+import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Label;
@@ -24,15 +26,18 @@ public class Exercise11 implements ActionListener, WindowListener {
 	Button boton7 = new Button("");
 	Button boton8 = new Button("");
 	Button boton9 = new Button("");
-	Label ganador = new Label("Ganador:");
-	TextField resultGanador = new TextField ("");
+	
+	
+	Dialog dlgWindow = new Dialog(window, "Juego Terminado", true);
+	Label lblMessage = new Label ("Ganador:");
+	TextField txtWinner = new TextField("");
 
 	String[][] tablero = new String[3][3];
 	int turno = 0; 
 
 	Exercise11() {
 		
-		// Matriz de 3x3 llamada "tablero" para almacenar el estado de cada botón en cada turno.
+		// Matriz de 3x3 llamada "tablero" para almacenar el estado de cada botÃ³n en cada turno.
 		tablero = new String[3][3];
 		
 		for (int i = 0; i < 3; i++) {
@@ -41,7 +46,7 @@ public class Exercise11 implements ActionListener, WindowListener {
 		    }
 		}
 		
-		window.setLayout(new GridLayout(4, 3));
+		window.setLayout(new GridLayout(3, 3));
 		window.addWindowListener(this);
 
 		boton1.addActionListener(this);
@@ -63,14 +68,24 @@ public class Exercise11 implements ActionListener, WindowListener {
 		window.add(boton7);
 		window.add(boton8);
 		window.add(boton9);
+		/*
 		window.add(ganador);
 		window.add(resultGanador);
+		*/
 
-		window.setBackground(Color.CYAN);
+		window.setBackground(Color.gray);
 		window.setSize(250, 250);
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 		window.setResizable(false);
+		
+		dlgWindow.setSize(160, 75);
+		dlgWindow.setLayout(new FlowLayout());
+		dlgWindow.addWindowListener(this);
+		dlgWindow.add(lblMessage);
+		dlgWindow.add(txtWinner);
+		dlgWindow.setLocationRelativeTo(null);
+		dlgWindow.setResizable(false);
 	}
 
 	public static void main(String[] args) {
@@ -81,8 +96,24 @@ public class Exercise11 implements ActionListener, WindowListener {
 	public void windowOpened(WindowEvent e) {}
 	@Override
 	public void windowClosing(WindowEvent e) {
-		System.out.println("Application has been closed.");
-		System.exit(0);
+		if (dlgWindow.isActive()) 
+		{
+			dlgWindow.setVisible(false);
+			boton1.setLabel("");
+			boton2.setLabel("");
+			boton3.setLabel("");
+			boton4.setLabel("");
+			boton5.setLabel("");
+			boton6.setLabel("");
+			boton7.setLabel("");
+			boton8.setLabel("");
+			boton9.setLabel("");
+			turno = 0;
+			
+		}else {
+			System.out.println("Application has been closed.");
+			System.exit(0);
+		}
 	}
 	@Override
 	public void windowClosed(WindowEvent e) {}
@@ -96,11 +127,12 @@ public class Exercise11 implements ActionListener, WindowListener {
 	public void windowDeactivated(WindowEvent e) {}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// Se verifica qué botón ha sido presionado y se establece el valor correspondiente en la posición del array "tablero" correspondiente:
+		// Se verifica quÃ© botÃ³n ha sido presionado y se establece el valor correspondiente en la posiciÃ³n del array "tablero" correspondiente:
 		
-		// Con e.getSource() se comprueba si se pulsó el botón y se 
+		// Con e.getSource() se comprueba si se pulsÃ³ el botÃ³n y se 
 		// establece el valor correspondiente ("X" o "O") en la matriz.
 		
+		System.out.println("hola");
 		if (e.getSource().equals(boton1)) 
 		{
 			if(turno == 0) {
@@ -112,10 +144,10 @@ public class Exercise11 implements ActionListener, WindowListener {
 				tablero[0][0]="X";
 				turno = 0;	
 			}
-			// Quito la escucha del botón para poder hacer clic en otro y que se ponga donde he marcado.
+			// Quito la escucha del botÃ³n para poder hacer clic en otro y que se ponga donde he marcado.
 			boton1.removeActionListener(this);
-			// Luego se llama al método "comprobarGanador" para verificar si alguno de los jugadores ha ganado.
-			// Se ejecuta después de cada jugada y comprueba si alguno de los jugadores ha ganado en alguna fila, columna o diagonal.
+			// Luego se llama al mÃ©todo "comprobarGanador" para verificar si alguno de los jugadores ha ganado.
+			// Se ejecuta despuÃ©s de cada jugada y comprueba si alguno de los jugadores ha ganado en alguna fila, columna o diagonal.
 			comprobarGanador();
 		}
 		else if (e.getSource().equals(boton2)) 
@@ -233,15 +265,17 @@ public class Exercise11 implements ActionListener, WindowListener {
 	}
 
 	private void comprobarGanador() {
-		// Llamo al método "comprobarGanador" y verifico las posibles combinaciones ganadoras.
+		// Llamo al mÃ©todo "comprobarGanador" y verifico las posibles combinaciones ganadoras.
 		
 		// Comprobar filas
 		for (int i = 0; i < 3; i++) {
 			if (tablero[i][0].equals(tablero[i][1]) && tablero[i][1].equals(tablero[i][2]) && !tablero[i][0].equals("")) {
-				// Si se encuentra combinación ganadora se establece en el TextField "resultGanador" si fue "X" o "O" el ganador.
-				resultGanador.setText("¡" + tablero[i][0] + " ha ganado!");
-				// También agrego un "Syso" para que salga por consola.
-				System.out.println("¡" + tablero[i][0] + " ha ganado!");
+				
+				// Si se encuentra combinaciÃ³n ganadora se establece en el TextField "resultGanador" si fue "X" o "O" el ganador.
+				System.out.println("Ganador: " +tablero[i][0]);
+				txtWinner.setText("    " +tablero[i][0]);
+				txtWinner.setEditable(false);
+				dlgWindow.setVisible(true);
 				return;
 			}
 		}
@@ -249,21 +283,31 @@ public class Exercise11 implements ActionListener, WindowListener {
 		// Comprobar columnas
 		for (int i = 0; i < 3; i++) {
 			if (tablero[0][i].equals(tablero[1][i]) && tablero[1][i].equals(tablero[2][i]) && !tablero[0][i].equals("")) {
-				resultGanador.setText("¡" + tablero[0][i] + " ha ganado!");
-				System.out.println("¡" + tablero[0][i] + " ha ganado!");
+				
+				// Si se encuentra combinaciÃ³n ganadora se establece en el TextField "resultGanador" si fue "X" o "O" el ganador.
+				System.out.println("Ganador: " +tablero[0][i]);
+				txtWinner.setText("    " +tablero[0][i]);
+				txtWinner.setEditable(false);
+				dlgWindow.setVisible(true);
 				return;
 			}
 		}
 		
 		// Comprobar diagonales
 		if (tablero[0][0].equals(tablero[1][1]) && tablero[1][1].equals(tablero[2][2]) && !tablero[0][0].equals("")) {
-			resultGanador.setText("¡" + tablero[0][0] + " ha ganado!");
-			System.out.println("¡" + tablero[0][0] + " ha ganado!");
+			
+			System.out.println("Ganador: " +tablero[0][0]);
+			txtWinner.setText("    " +tablero[0][0]);
+			txtWinner.setEditable(false);
+			dlgWindow.setVisible(true);
 			return;
 		}
 		if (tablero[0][2].equals(tablero[1][1]) && tablero[1][1].equals(tablero[2][0]) && !tablero[0][2].equals("")) {
-			resultGanador.setText("¡" + tablero[0][2] + " ha ganado!");
-			System.out.println("¡" + tablero[0][2] + " ha ganado!");
+			
+			System.out.println("Ganador: " +tablero[0][2]);
+			txtWinner.setText("    " +tablero[0][2]);
+			txtWinner.setEditable(false);
+			dlgWindow.setVisible(true);
 			return;
 		}
 		
@@ -278,13 +322,11 @@ public class Exercise11 implements ActionListener, WindowListener {
 			}
 		}
 		if (empate) {
-			resultGanador.setText("¡Empate!");
-			System.out.println("¡Empate!");
+			txtWinner.setText("Â¡Empate!");
+			System.out.println("Â¡Empate!");
 		}
 	}
 }
-
-
 
 
 

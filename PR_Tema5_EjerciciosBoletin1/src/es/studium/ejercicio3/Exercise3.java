@@ -1,8 +1,11 @@
 package es.studium.ejercicio3;
 
 import java.awt.Button;
+import java.awt.Dialog;
+import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Label;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
@@ -22,6 +25,14 @@ public class Exercise3 implements ActionListener, WindowListener {
 	Label lbltext3 = new Label("Resultado");
 	Button btnFahtoCel = new Button("Fahrenheit a Celsius ");
 	TextField txtResultado = new TextField(10);
+	
+	// Dialogo:
+	// El constructor necesita 3 parámetros: 
+	// Debe estar asociado a un frame, título del dialogo e indicar si es modal o no.
+	// Con true indicamos que es modal, lo que quiere decir que cuando sale el diálogo no permite seguir
+	// ejecutando el programa a no ser que interactue con el diálogo primero.
+	Dialog dlgWindow = new Dialog(window, "Error Message", true);
+	Label lblMessage = new Label ("Format error.");
 
 	Exercise3() 
 	{
@@ -45,19 +56,40 @@ public class Exercise3 implements ActionListener, WindowListener {
 		window.setResizable(false);
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
+		
+		dlgWindow.setSize(70, 70);
+		dlgWindow.addWindowListener(this);
+		dlgWindow.setLayout(new FlowLayout());
+		dlgWindow.add(lblMessage);
+		dlgWindow.setLocationRelativeTo(null);
+		dlgWindow.setResizable(false);
+		
 	}
 
 
 	public static void main(String[] args) {
 		new Exercise3();
+		
+	
 	}
 
 	@Override
 	public void windowOpened(WindowEvent e) {}
 	@Override
-	public void windowClosing(WindowEvent e) {
-		System.out.println("Application has been closed.");
-		System.exit(0);
+	public void windowClosing(WindowEvent e) 
+	{
+		if (dlgWindow.isActive()) 
+		{
+			dlgWindow.setVisible(false);
+			txtCantidad.setText("");
+			txtPorcentaje.setText("");
+			txtResultado.setText("");
+			
+		}else {
+			System.out.println("Application has been closed.");
+			System.exit(0);
+		}
+		
 	}
 	@Override
 	public void windowClosed(WindowEvent e) {}
@@ -76,12 +108,20 @@ public class Exercise3 implements ActionListener, WindowListener {
 		if (e.getSource().equals(btnCalcular)) {
 			if ( (!txtCantidad.getText().equals("")) | (!txtPorcentaje.getText().equals("")) )
 			{
-				float cantidad = Float.parseFloat(txtCantidad.getText());
-				float porcentaje = Float.parseFloat(txtPorcentaje.getText());
+				
+				try {
+					float cantidad = Float.parseFloat(txtCantidad.getText());
+					float porcentaje = Float.parseFloat(txtPorcentaje.getText());
 
-				float resultado = ((cantidad * porcentaje) / 100f);
-				txtResultado.setText(resultado+"");
-				// txtResultado.setText(String.format("%.2f", resultado));
+					float resultado = ((cantidad * porcentaje) / 100f);
+					txtResultado.setText(resultado+"");
+					// txtResultado.setText(String.format("%.2f", resultado));
+				} catch (NumberFormatException nfe) {
+					txtResultado.setText("Format error.");
+					System.out.println("Format error.");
+					dlgWindow.setVisible(true);	
+				}
+				
 
 			}
 		}

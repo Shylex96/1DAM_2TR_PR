@@ -19,7 +19,7 @@ public class Exercise5 implements ActionListener, WindowListener
 	// Atributos:
 	Frame window = new Frame("Vehículos");
 
-	// Grupo de CheckBoxes para poder seleccionar Ãºnicamente uno de cada grupo:
+	// Grupo de CheckBoxes para poder seleccionar únicamente uno de cada grupo:
 	CheckboxGroup chkgrGrupo1 = new CheckboxGroup();
 	CheckboxGroup chkgrGrupo2 = new CheckboxGroup();
 	CheckboxGroup chkgrGrupo3 = new CheckboxGroup();
@@ -37,7 +37,7 @@ public class Exercise5 implements ActionListener, WindowListener
 	Checkbox chk9 = new Checkbox("No", false, chkgrGrupo3);
 	Panel pnlBtn = new Panel();
 
-	// BotÃ³n para calcular y TextField donde poner el total del presupuesto:
+	// Botón para calcular y TextField donde poner el total del presupuesto:
 	Button btnCalcular = new Button("Calcular presupuesto");
 	TextField txtPresupuesto = new TextField(20);
 
