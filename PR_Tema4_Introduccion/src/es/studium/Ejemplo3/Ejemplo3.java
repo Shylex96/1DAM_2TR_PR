@@ -12,7 +12,7 @@ public class Ejemplo3
 	Frame window = new Frame();
 	Button btnAceptar = new Button("Aceptar");
 	Label lblNombre = new Label("Nombre:");
-	TextField txtNombre = new TextField(20); // El n�mero indica el ancho del cuadro de texto, no el n�mero de caracteres.
+	TextField txtNombre = new TextField(20); // El número indica el ancho del cuadro de texto, no el número de caracteres.
 	
 	Ejemplo3()
 	{

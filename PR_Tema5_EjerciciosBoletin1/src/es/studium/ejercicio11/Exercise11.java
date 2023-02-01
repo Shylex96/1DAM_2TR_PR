@@ -15,63 +15,59 @@ import java.awt.event.WindowListener;
 
 public class Exercise11 implements ActionListener, WindowListener {
 
-	Frame window = new Frame("3 en Raya");
+	Frame window = new Frame("Tic Tac Toe");
 
-	Button boton1 = new Button("");
-	Button boton2 = new Button("");
-	Button boton3 = new Button("");
-	Button boton4 = new Button("");
-	Button boton5 = new Button("");
-	Button boton6 = new Button("");
-	Button boton7 = new Button("");
-	Button boton8 = new Button("");
-	Button boton9 = new Button("");
+	Button btn1 = new Button("");
+	Button btn2 = new Button("");
+	Button btn3 = new Button("");
+	Button btn4 = new Button("");
+	Button btn5 = new Button("");
+	Button btn6 = new Button("");
+	Button btn7 = new Button("");
+	Button btn8 = new Button("");
+	Button btn9 = new Button("");
 	
 	
-	Dialog dlgWindow = new Dialog(window, "Juego Terminado", true);
-	Label lblMessage = new Label ("Ganador:");
+	Dialog dlgWindow = new Dialog(window, "Game Finished", true);
+	Label lblMessage = new Label ("Winner:");
 	TextField txtWinner = new TextField("");
 
-	String[][] tablero = new String[3][3];
-	int turno = 0; 
+	String[][] board = new String[3][3];
+	int turn = 0; 
 
 	Exercise11() {
 		
-		// Matriz de 3x3 llamada "tablero" para almacenar el estado de cada botón en cada turno.
-		tablero = new String[3][3];
+		// 3x3 matrix called "board" in order to save the state of every single button in every turn.
+		board = new String[3][3];
 		
 		for (int i = 0; i < 3; i++) {
 		    for (int j = 0; j < 3; j++) {
-		        tablero[i][j] = "";
+		        board[i][j] = "";
 		    }
 		}
 		
 		window.setLayout(new GridLayout(3, 3));
 		window.addWindowListener(this);
 
-		boton1.addActionListener(this);
-		boton2.addActionListener(this);
-		boton3.addActionListener(this);
-		boton4.addActionListener(this);
-		boton5.addActionListener(this);
-		boton6.addActionListener(this);
-		boton7.addActionListener(this);
-		boton8.addActionListener(this);
-		boton9.addActionListener(this);
+		btn1.addActionListener(this);
+		btn2.addActionListener(this);
+		btn3.addActionListener(this);
+		btn4.addActionListener(this);
+		btn5.addActionListener(this);
+		btn6.addActionListener(this);
+		btn7.addActionListener(this);
+		btn8.addActionListener(this);
+		btn9.addActionListener(this);
 
-		window.add(boton1);
-		window.add(boton2);
-		window.add(boton3);
-		window.add(boton4);
-		window.add(boton5);
-		window.add(boton6);
-		window.add(boton7);
-		window.add(boton8);
-		window.add(boton9);
-		/*
-		window.add(ganador);
-		window.add(resultGanador);
-		*/
+		window.add(btn1);
+		window.add(btn2);
+		window.add(btn3);
+		window.add(btn4);
+		window.add(btn5);
+		window.add(btn6);
+		window.add(btn7);
+		window.add(btn8);
+		window.add(btn9);
 
 		window.setBackground(Color.gray);
 		window.setSize(250, 250);
@@ -79,7 +75,7 @@ public class Exercise11 implements ActionListener, WindowListener {
 		window.setVisible(true);
 		window.setResizable(false);
 		
-		dlgWindow.setSize(160, 75);
+		dlgWindow.setSize(160, 100);
 		dlgWindow.setLayout(new FlowLayout());
 		dlgWindow.addWindowListener(this);
 		dlgWindow.add(lblMessage);
@@ -98,17 +94,41 @@ public class Exercise11 implements ActionListener, WindowListener {
 	public void windowClosing(WindowEvent e) {
 		if (dlgWindow.isActive()) 
 		{
+			
+			// Set board to Empty
+			for (int i = 0; i < 3; i++) {
+			    for (int j = 0; j < 3; j++) {
+			        board[i][j] = "";
+			    }
+			}
+			
+			// Btn Reset:
+			btn1.setLabel(""); // Up - Left
+			btn2.setLabel(""); // Up - Center
+			btn3.setLabel(""); // Up - Right
+			btn4.setLabel(""); // Center - Left
+			btn5.setLabel(""); // Center - Center
+			btn6.setLabel(""); // Center - RighT	
+			btn7.setLabel(""); // Down - Left
+			btn8.setLabel(""); // Down - Center
+			btn9.setLabel(""); // Down - Right
+			
+			// Establish turn to 0 to a new game.
+			turn = 0;
+			
+			// Set buttons to active listen again.
+			btn1.addActionListener(this);
+			btn2.addActionListener(this);
+			btn3.addActionListener(this);
+			btn4.addActionListener(this);
+			btn5.addActionListener(this);
+			btn6.addActionListener(this);
+			btn7.addActionListener(this);
+			btn8.addActionListener(this);
+			btn9.addActionListener(this);
+			
+			// Remove Dialog
 			dlgWindow.setVisible(false);
-			boton1.setLabel("");
-			boton2.setLabel("");
-			boton3.setLabel("");
-			boton4.setLabel("");
-			boton5.setLabel("");
-			boton6.setLabel("");
-			boton7.setLabel("");
-			boton8.setLabel("");
-			boton9.setLabel("");
-			turno = 0;
 			
 		}else {
 			System.out.println("Application has been closed.");
@@ -127,203 +147,205 @@ public class Exercise11 implements ActionListener, WindowListener {
 	public void windowDeactivated(WindowEvent e) {}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// Se verifica qué botón ha sido presionado y se establece el valor correspondiente en la posición del array "tablero" correspondiente:
+		// It check which button has been pressed and establish the value at current position in "board" array:
 		
-		// Con e.getSource() se comprueba si se pulsó el botón y se 
-		// establece el valor correspondiente ("X" o "O") en la matriz.
+		// With "e.getSource()" scan if the button was 
+		// pressed and it establish the value:("X" or "O")
 		
-		System.out.println("hola");
-		if (e.getSource().equals(boton1)) 
+		if (e.getSource().equals(btn1)) 
 		{
-			if(turno == 0) {
-				boton1.setLabel("O");
-				tablero[0][0]="O";
-				turno = 1;
+			if(turn == 0) {
+				btn1.setLabel("O");
+				board[0][0]="O";
+				turn = 1;
 			} else {
-				boton1.setLabel("X");
-				tablero[0][0]="X";
-				turno = 0;	
+				btn1.setLabel("X");
+				board[0][0]="X";
+				turn = 0;	
 			}
-			// Quito la escucha del botón para poder hacer clic en otro y que se ponga donde he marcado.
-			boton1.removeActionListener(this);
-			// Luego se llama al método "comprobarGanador" para verificar si alguno de los jugadores ha ganado.
-			// Se ejecuta después de cada jugada y comprueba si alguno de los jugadores ha ganado en alguna fila, columna o diagonal.
-			comprobarGanador();
+			// Every turn I remove the current button listener (So player can clic another button).
+			btn1.removeActionListener(this);
+			// After this, we called "checkWinner" method to verify if any player has won.
+			// This will be executed after every round to check if someone has won the game in any row, column or diagonal.
+			checkWinner();
 		}
-		else if (e.getSource().equals(boton2)) 
+		else if (e.getSource().equals(btn2)) 
 		{
-			if(turno == 0) {
-				boton2.setLabel("O");
-				tablero[0][1]="O";
-				turno = 1;
+			if(turn == 0) {
+				btn2.setLabel("O");
+				board[0][1]="O";
+				turn = 1;
 			} else {
-				boton2.setLabel("X");
-				tablero[0][1]="X";
-				turno = 0;
+				btn2.setLabel("X");
+				board[0][1]="X";
+				turn = 0;
 			}
-			boton2.removeActionListener(this);
-			comprobarGanador();
+			btn2.removeActionListener(this);
+			checkWinner();
 		}
-		else if (e.getSource().equals(boton3)) 
+		else if (e.getSource().equals(btn3)) 
 		{
-			if(turno == 0) {
-				boton3.setLabel("O");
-				tablero[0][2]="O";
-				turno = 1;
+			if(turn == 0) {
+				btn3.setLabel("O");
+				board[0][2]="O";
+				turn = 1;
 			} else {
-				boton3.setLabel("X");
-				tablero[0][2]="X";
-				turno = 0;
+				btn3.setLabel("X");
+				board[0][2]="X";
+				turn = 0;
 			}
-			boton3.removeActionListener(this);
-			comprobarGanador();
+			btn3.removeActionListener(this);
+			checkWinner();
 		}
-		else if (e.getSource().equals(boton4)) 
+		else if (e.getSource().equals(btn4)) 
 		{
-			if(turno == 0) {
-				boton4.setLabel("O");
-				tablero[1][0]="O";
-				turno = 1;
+			if(turn == 0) {
+				btn4.setLabel("O");
+				board[1][0]="O";
+				turn = 1;
 			} else {
-				boton4.setLabel("X");
-				tablero[1][0]="X";
-				turno = 0;
+				btn4.setLabel("X");
+				board[1][0]="X";
+				turn = 0;
 			}
-			boton4.removeActionListener(this);
-			comprobarGanador();
+			btn4.removeActionListener(this);
+			checkWinner();
 		}
-		else if (e.getSource().equals(boton5)) 
+		else if (e.getSource().equals(btn5)) 
 		{
-			if(turno == 0) {
-				boton5.setLabel("O");
-				tablero[1][1]="O";
-				turno = 1;
+			if(turn == 0) {
+				btn5.setLabel("O");
+				board[1][1]="O";
+				turn = 1;
 			} else {
-				boton5.setLabel("X");
-				tablero[1][1]="X";
-				turno = 0;
+				btn5.setLabel("X");
+				board[1][1]="X";
+				turn = 0;
 			}
-			boton5.removeActionListener(this);
-			comprobarGanador();
+			btn5.removeActionListener(this);
+			checkWinner();
 		}
-		else if (e.getSource().equals(boton6)) 
+		else if (e.getSource().equals(btn6)) 
 		{
-			if(turno == 0) {
-				boton6.setLabel("O");
-				tablero[1][2]="O";
-				turno = 1;
+			if(turn == 0) {
+				btn6.setLabel("O");
+				board[1][2]="O";
+				turn = 1;
 			} else {
-				boton6.setLabel("X");
-				tablero[1][2]="X";
-				turno = 0;
+				btn6.setLabel("X");
+				board[1][2]="X";
+				turn = 0;
 			}
-			boton6.removeActionListener(this);
-			comprobarGanador();
+			btn6.removeActionListener(this);
+			checkWinner();
 		}
-		else if (e.getSource().equals(boton7)) 
+		else if (e.getSource().equals(btn7)) 
 		{
-			if(turno == 0) {
-				boton7.setLabel("O");
-				tablero[2][0]="O";
-				turno = 1;
+			if(turn == 0) {
+				btn7.setLabel("O");
+				board[2][0]="O";
+				turn = 1;
 			} else {
-				boton7.setLabel("X");
-				tablero[2][0]="X";
-				turno = 0;
+				btn7.setLabel("X");
+				board[2][0]="X";
+				turn = 0;
 			}
-			boton7.removeActionListener(this);
-			comprobarGanador();
+			btn7.removeActionListener(this);
+			checkWinner();
 		}
-		else if (e.getSource().equals(boton8)) 
+		else if (e.getSource().equals(btn8)) 
 		{
-			if(turno == 0) {
-				boton8.setLabel("O");
-				tablero[2][1]="O";
-				turno = 1;
+			if(turn == 0) {
+				btn8.setLabel("O");
+				board[2][1]="O";
+				turn = 1;
 			} else {
-				boton8.setLabel("X");
-				tablero[2][1]="X";
-				turno = 0;
+				btn8.setLabel("X");
+				board[2][1]="X";
+				turn = 0;
 			}
-			boton8.removeActionListener(this);
-			comprobarGanador();
+			btn8.removeActionListener(this);
+			checkWinner();
 		}
-		else if (e.getSource().equals(boton9)) 
+		else if (e.getSource().equals(btn9)) 
 		{
-			if(turno == 0) {
-				boton9.setLabel("O");
-				tablero[2][2]="O";
-				turno = 1;
+			if(turn == 0) {
+				btn9.setLabel("O");
+				board[2][2]="O";
+				turn = 1;
 			} else {
-				boton9.setLabel("X");
-				tablero[2][2]="X";
-				turno = 0;
+				btn9.setLabel("X");
+				board[2][2]="X";
+				turn = 0;
 			}
-			boton9.removeActionListener(this);
-			comprobarGanador();
+			btn9.removeActionListener(this);
+			checkWinner();
 		}
 	}
 
-	private void comprobarGanador() {
-		// Llamo al método "comprobarGanador" y verifico las posibles combinaciones ganadoras.
+	private void checkWinner() {
+		// Make a call to "checkWinner" method and verify if any of the possible combinations won the game yet.
 		
-		// Comprobar filas
+		// Check rows.
 		for (int i = 0; i < 3; i++) {
-			if (tablero[i][0].equals(tablero[i][1]) && tablero[i][1].equals(tablero[i][2]) && !tablero[i][0].equals("")) {
+			if (board[i][0].equals(board[i][1]) && board[i][1].equals(board[i][2]) && !board[i][0].equals("")) {
 				
-				// Si se encuentra combinación ganadora se establece en el TextField "resultGanador" si fue "X" o "O" el ganador.
-				System.out.println("Ganador: " +tablero[i][0]);
-				txtWinner.setText("    " +tablero[i][0]);
+				// If it finds a win combinations it establish at "winnerResult" TextField if it was an "X" or "O".
+				System.out.println("Winner: " +board[i][0]);
+				txtWinner.setText("    " +board[i][0]);
 				txtWinner.setEditable(false);
 				dlgWindow.setVisible(true);
 				return;
 			}
 		}
 		
-		// Comprobar columnas
+		// Check columns.
 		for (int i = 0; i < 3; i++) {
-			if (tablero[0][i].equals(tablero[1][i]) && tablero[1][i].equals(tablero[2][i]) && !tablero[0][i].equals("")) {
+			if (board[0][i].equals(board[1][i]) && board[1][i].equals(board[2][i]) && !board[0][i].equals("")) {
 				
-				// Si se encuentra combinación ganadora se establece en el TextField "resultGanador" si fue "X" o "O" el ganador.
-				System.out.println("Ganador: " +tablero[0][i]);
-				txtWinner.setText("    " +tablero[0][i]);
+				// If it finds a win combinations it establish at "winnerResult" TextField if it was an "X" or "O".
+				System.out.println("Winner: " +board[0][i]);
+				txtWinner.setText("    " +board[0][i]);
 				txtWinner.setEditable(false);
 				dlgWindow.setVisible(true);
 				return;
 			}
 		}
 		
-		// Comprobar diagonales
-		if (tablero[0][0].equals(tablero[1][1]) && tablero[1][1].equals(tablero[2][2]) && !tablero[0][0].equals("")) {
+		// Check diagonals.
+		if (board[0][0].equals(board[1][1]) && board[1][1].equals(board[2][2]) && !board[0][0].equals("")) {
 			
-			System.out.println("Ganador: " +tablero[0][0]);
-			txtWinner.setText("    " +tablero[0][0]);
+			System.out.println("Winner: " +board[0][0]);
+			txtWinner.setText("    " +board[0][0]);
 			txtWinner.setEditable(false);
 			dlgWindow.setVisible(true);
 			return;
 		}
-		if (tablero[0][2].equals(tablero[1][1]) && tablero[1][1].equals(tablero[2][0]) && !tablero[0][2].equals("")) {
+		if (board[0][2].equals(board[1][1]) && board[1][1].equals(board[2][0]) && !board[0][2].equals("")) {
 			
-			System.out.println("Ganador: " +tablero[0][2]);
-			txtWinner.setText("    " +tablero[0][2]);
+			System.out.println("Winner: " +board[0][2]);
+			txtWinner.setText("    " +board[0][2]);
 			txtWinner.setEditable(false);
 			dlgWindow.setVisible(true);
 			return;
 		}
 		
-		// Comprobar empate
-		boolean empate = true;
+		// Check Tie
+		boolean Tie = true;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				if (tablero[i][j].equals("")) {
-					empate = false;
+				if (board[i][j].equals("")) {
+					Tie = false;
 					break;
 				}
 			}
 		}
-		if (empate) {
-			txtWinner.setText("¡Empate!");
-			System.out.println("¡Empate!");
+		if (Tie) {
+			System.out.println("¡Tie!");
+			txtWinner.setText("   ¡Tie!");
+			txtWinner.setEditable(false);
+			dlgWindow.setVisible(true);
+			
 		}
 	}
 }
