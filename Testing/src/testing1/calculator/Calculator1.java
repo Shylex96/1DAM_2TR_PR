@@ -49,7 +49,7 @@ public class Calculator1 implements ActionListener, WindowListener, KeyListener
 	public String noDecimalsWithInt;
 
 	Calculator1() {
-		// Crear la distribución
+		// Create distribution
 		GridBagLayout gridbag = new GridBagLayout();
 		GridBagConstraints gbc = new GridBagConstraints();
 		window.setLayout(gridbag);
@@ -258,7 +258,7 @@ public class Calculator1 implements ActionListener, WindowListener, KeyListener
 		{
 			dlgWindow.setVisible(false);
 		}else {
-			System.out.println("\nApplication has been closed.");
+			System.out.println("Application has been closed.");
 			System.exit(0);
 		}
 	}

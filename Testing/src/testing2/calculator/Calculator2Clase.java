@@ -49,17 +49,17 @@ public class Calculator2Clase implements ActionListener, WindowListener, KeyList
 
 	Calculator2Clase() {
 
-		// Crear la distribución
+		// Create distribution
 		window.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 
-		// Establecer restricciones generales (Comunes)
+		// Establish comun restrictions
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.weightx = 1.0; 
 		gbc.weighty = 1.0;
 
-		// Añadir los elementos:
-		// Aplicar restricciones al botón
+		// Add elements
+		// Apply restrictions to buttons
 
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -193,7 +193,7 @@ public class Calculator2Clase implements ActionListener, WindowListener, KeyList
 		{
 			dlgWindow.setVisible(false);
 		}else {
-			System.out.println("\nApplication has been closed.");
+			System.out.println("Application has been closed.");
 			System.exit(0);
 		}
 	}
