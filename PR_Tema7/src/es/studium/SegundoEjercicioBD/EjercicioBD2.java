@@ -1,11 +1,11 @@
-package es.studium.PrimerEjercicioBD;
+package es.studium.SegundoEjercicioBD;
 
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Label;
-import java.awt.TextField;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -16,17 +16,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class EjercicioBD1 implements ActionListener, WindowListener{
+public class EjercicioBD2 implements ActionListener, WindowListener{
 
-	Frame window = new Frame("Ejercicio 1 BD");
-	Label lblIdEmpleado = new Label ("idEmpleado");
+	Frame window = new Frame("Ejercicio 2 BD");
 	Label lblNombreEmpleado = new Label ("Nombre");
+	Label lblIdEmpleado = new Label ("idEmpleado");
 	Label lblSalarioEmpleado = new Label ("Salario");
-	TextField txtIdEmpleado = new TextField(17);
-	TextField txtNombreEmpleado = new TextField(20);
-	TextField txtSalarioEmpleado = new TextField(21);
-	Button btnAnterior = new Button ("Anterior");
-	Button btnSiguiente = new Button ("Siguiente");
+	TextArea txtAreaInfo = new TextArea (10, 40);
+	Button btnVolver = new Button ("Volver");
 
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/empresa";
@@ -39,30 +36,20 @@ public class EjercicioBD1 implements ActionListener, WindowListener{
 	ResultSet rs = null; // Array con el resultado extraido de la BD.
 
 
-	EjercicioBD1() {
+	EjercicioBD2() {
 		// Create distribution
 		window.setLayout(new FlowLayout());
 
-		window.add(lblIdEmpleado);
-		window.add(txtIdEmpleado);
 		window.add(lblNombreEmpleado);
-		window.add(txtNombreEmpleado);
+		window.add(lblIdEmpleado);
 		window.add(lblSalarioEmpleado);
-		window.add(txtSalarioEmpleado);
-		window.add(btnAnterior);
-		window.add(btnSiguiente);
+		window.add(txtAreaInfo);
+		window.add(btnVolver);
 
-		txtIdEmpleado.setEditable(false);
-		txtNombreEmpleado.setEditable(false);
-		txtSalarioEmpleado.setEditable(false);
+		txtAreaInfo.setEditable(false);
+		btnVolver.addActionListener(this);
 
-		txtIdEmpleado.addActionListener(this);
-		txtNombreEmpleado.addActionListener(this);
-		txtSalarioEmpleado.addActionListener(this);
-		btnAnterior.addActionListener(this);
-		btnSiguiente.addActionListener(this);
-
-		window.setSize(300, 200); 
+		window.setSize(350, 300); 
 		window.setBackground(Color.orange);
 		window.setResizable(false);
 		window.setLocationRelativeTo(null);
@@ -77,11 +64,13 @@ public class EjercicioBD1 implements ActionListener, WindowListener{
 			// Crear un objeto ResultSet para guardar lo obtenido
 			// y ejecutar la sentencia SQL
 			rs = statement.executeQuery(sentence);
-			rs.next();
-			// System.out.println(rs.getString("idEmpleado") + " " + rs.getString("nombreEmpleado")+ " " + rs.getString("salarioEmpleado"));
-			txtIdEmpleado.setText(rs.getString("idEmpleado"));
-			txtNombreEmpleado.setText(rs.getString("nombreEmpleado"));
-			txtSalarioEmpleado.setText(rs.getString("salarioEmpleado") + " €");
+			while (rs.next())
+			{
+				txtAreaInfo.setText(txtAreaInfo.getText() + rs.getString("nombreEmpleado"));
+				txtAreaInfo.setText(txtAreaInfo.getText() + rs.getString("idEmpleado"));
+				txtAreaInfo.setText(txtAreaInfo.getText() + rs.getString("salarioEmpleado") + " €\n");
+				// String format
+			}
 
 
 		} catch (ClassNotFoundException cnfe)
@@ -99,7 +88,7 @@ public class EjercicioBD1 implements ActionListener, WindowListener{
 
 
 	public static void main(String[] args) {
-		new EjercicioBD1();
+		new EjercicioBD2();
 	}
 
 
@@ -135,35 +124,9 @@ public class EjercicioBD1 implements ActionListener, WindowListener{
 	public void windowDeactivated(WindowEvent e) {}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(btnSiguiente)) {
-			try {
-
-				if(!rs.isLast()) 
-				{
-					rs.next();
-					txtIdEmpleado.setText(rs.getString("idEmpleado"));
-					txtNombreEmpleado.setText(rs.getString("nombreEmpleado"));
-					txtSalarioEmpleado.setText(rs.getString("salarioEmpleado") + " €");
-				}
-			} catch (SQLException sqle)
-			{
-				System.out.println("Error 2-"+sqle.getMessage());
-			}
-		} else if (e.getSource().equals(btnAnterior)) {
-			try {
-				if(!rs.isFirst()) 
-				{
-					rs.previous();
-					txtIdEmpleado.setText(rs.getString("idEmpleado"));
-					txtNombreEmpleado.setText(rs.getString("nombreEmpleado"));
-					txtSalarioEmpleado.setText(rs.getString("salarioEmpleado") + " €");
-				}
-
-			} catch (SQLException e1) {
-				System.out.println("Error 2-"+e1.getMessage());
-			}
+		if (e.getSource().equals(btnVolver)) {
+			
+				System.exit(0);
 		}
 	}
-
 }
-
