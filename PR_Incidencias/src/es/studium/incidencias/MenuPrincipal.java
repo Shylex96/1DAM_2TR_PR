@@ -14,14 +14,15 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 public class MenuPrincipal implements ActionListener, WindowListener {
-	Frame window = new Frame("Menú Principal");
+	Frame windowPrincipal = new Frame("Menú Principal");
 	MenuBar barraMenu = new MenuBar();
 
 	Menu menuUsuarios = new Menu("Usuarios");
 	Menu menuElementos = new Menu("Elementos");
 	Menu menuIncidencias = new Menu("Incidencias");
+	
 	// Items Menu Usuarios:
-	MenuItem menuUsuariosNuevo = new MenuItem("Nuevo");
+	MenuItem menuUsuarioNuevo = new MenuItem("Nuevo");
 	MenuItem menuUsuariosListado = new MenuItem("Listado");
 	MenuItem menuUsuariosBaja = new MenuItem("Baja");
 	MenuItem menuUsuariosModificar = new MenuItem("Modificar");
@@ -34,20 +35,13 @@ public class MenuPrincipal implements ActionListener, WindowListener {
 	
 	// Items Menu Incidencias:
 	
-
-	// Dialog:
-	Dialog dlgWindow = new Dialog(window, "Item Window", true);
-	Label lblItemClicked = new Label ("");
-
-	
-	
 	
 	MenuPrincipal (){
-		window.setLayout(new FlowLayout());
+		windowPrincipal.setLayout(new FlowLayout());
 
-		window.setMenuBar(barraMenu);
+		windowPrincipal.setMenuBar(barraMenu);
 
-		menuUsuarios.add(menuUsuariosNuevo);
+		menuUsuarios.add(menuUsuarioNuevo);
 		menuUsuarios.add(menuUsuariosListado);
 		menuUsuarios.add(menuUsuariosBaja);
 		menuUsuarios.add(menuUsuariosModificar);
@@ -56,8 +50,10 @@ public class MenuPrincipal implements ActionListener, WindowListener {
 		menuElementos.add(menuElementosListado);
 		menuElementos.add(menuElementosBaja);
 		menuElementos.add(menuElementosModificar);
+		
+		menuIncidencias.setEnabled(false);
 
-		menuUsuariosNuevo.addActionListener(this);
+		menuUsuarioNuevo.addActionListener(this);
 		menuUsuariosListado.addActionListener(this);
 		menuUsuariosBaja.addActionListener(this);
 		menuUsuariosModificar.addActionListener(this);
@@ -72,25 +68,17 @@ public class MenuPrincipal implements ActionListener, WindowListener {
 		barraMenu.add(menuElementos);
 		barraMenu.add(menuIncidencias);
 		
-		window.setResizable(false);
-		window.setSize(400, 400);
-		window.setLocationRelativeTo(null);
-		window.setBackground(Color.orange);
-		window.addWindowListener(this);
-
-		dlgWindow.setSize(400, 400);
-		dlgWindow.setLayout(new FlowLayout());
-		dlgWindow.addWindowListener(this);
-		dlgWindow.setLocationRelativeTo(null);
-		dlgWindow.setResizable(false);
+		windowPrincipal.setResizable(false);
+		windowPrincipal.setSize(400, 400);
+		windowPrincipal.setLocationRelativeTo(null);
+		windowPrincipal.setBackground(Color.orange);
+		windowPrincipal.addWindowListener(this);
 		
-		window.setVisible(true);
+		windowPrincipal.setVisible(true);
 	}
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -110,5 +98,11 @@ public class MenuPrincipal implements ActionListener, WindowListener {
 	@Override
 	public void windowDeactivated(WindowEvent e) {}
 	@Override
-	public void actionPerformed(ActionEvent e) {}
+	public void actionPerformed(ActionEvent e) {
+		
+		// Nuevo usuario
+		if (e.getSource().equals(menuUsuarioNuevo)) {
+			new NuevoUsuario();
+		}
+	}
 }

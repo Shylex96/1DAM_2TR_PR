@@ -59,4 +59,19 @@ public class Conexion {
 		}
 		return false;
 	}
+
+	public int altaUsuario(String sentencia) {
+		try {
+			
+			// Crear una sentencia
+			statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			
+			statement.executeUpdate(sentencia);
+			return 0;
+			
+			} catch (SQLException sqle) {
+				System.out.println("Error 4-"+sqle.getMessage());
+				return 1;
+			}
+	}
 }
