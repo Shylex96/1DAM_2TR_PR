@@ -1,5 +1,7 @@
 package es.studium.incidencias;
 
+import java.awt.Choice;
+import java.awt.TextArea;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -25,7 +27,7 @@ public class Conexion {
 	}
 
 	public Connection conectar() {
-		
+
 		try {
 			Class.forName(driver);
 			return(DriverManager.getConnection(url, login, password));
@@ -42,18 +44,18 @@ public class Conexion {
 	public boolean comprobarCredenciales(String u, String c) {
 
 		String cadena = "SELECT * FROM usuarios WHERE nombreUsuario = '"+ u + "' AND claveUsuario = SHA2('"+c+"',256);";
-		
+
 		try {
 			statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			rs = statement.executeQuery(cadena);
-			
+
 			if (rs.next()) {
 				return true;
 			} else {
 				return false;
 			}
-				
-			
+
+
 		} catch (SQLException sqle) {
 			System.out.println("Error 3-"+sqle.getMessage());
 		}
@@ -62,16 +64,72 @@ public class Conexion {
 
 	public int altaUsuario(String sentencia) {
 		try {
-			
+
 			// Crear una sentencia
 			statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			
+
 			statement.executeUpdate(sentencia);
 			return 0;
-			
-			} catch (SQLException sqle) {
-				System.out.println("Error 4-"+sqle.getMessage());
-				return 1;
+
+		} catch (SQLException sqle) {
+			System.out.println("Error 4-"+sqle.getMessage());
+			return 1;
+		}
+	}
+
+	public void rellenarListadoUsuarios(TextArea areaDatos) {
+		String sentencia = "SELECT idUsuarios, nombreUsuario, correoUsuario FROM incidencias.usuarios;";
+		try {
+
+			// Crear una sentencia
+			statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+			ResultSet resultado = statement.executeQuery(sentencia);
+			while(resultado.next()) {
+				// Append añade
+				areaDatos.append(resultado.getString("idUsuarios")+"\t");
+				areaDatos.append(resultado.getString("nombreUsuario")+"\n");
+				areaDatos.append(resultado.getString("correoUsuario")+"\n----------------------------------------------------------\n");
 			}
+
+		} catch (SQLException sqle) {
+			System.out.println("Error 5-"+sqle.getMessage());
+		}
+	}
+
+	public void rellenarChoiceUsuarios(Choice choUsuarios) {
+		choUsuarios.removeAll();
+		String sentencia = "SELECT idUsuarios, nombreUsuario FROM incidencias.usuarios ORDER BY 1;";
+		try {
+
+			// Crear una sentencia
+			statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+			ResultSet resultado = statement.executeQuery(sentencia);
+			choUsuarios.add("Elegir usuario..");
+			while(resultado.next()) {
+				// Append añade
+				choUsuarios.add(resultado.getString("idUsuarios")+"-"+resultado.getString("nombreUsuario"));
+			}
+
+		} catch (SQLException sqle) {
+			System.out.println("Error 6-"+sqle.getMessage());
+		}
+	}
+
+	public int borrarUsuario(String idUsuarios) {
+		String sentencia = "DELETE FROM incidencias.usuarios WHERE idUsuarios = " + idUsuarios;
+		// Crear una sentencia
+		try {
+			statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+			statement.executeUpdate(sentencia);
+			return 0;
+
+		} catch (SQLException sqle) {
+			System.out.println("Error 7-"+sqle.getMessage());
+			return 1;
+
+		}
 	}
 }

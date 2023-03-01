@@ -114,12 +114,15 @@ public class NuevoUsuario implements ActionListener, WindowListener {
 
 			} else if (txtClave.getText().equals(txtConfirmarClave.getText())){
 
-
 				// Dar de alta
-
 				String sentencia = "INSERT INTO usuarios VALUES (null, '"+txtNombre.getText()+"', SHA2('"+txtClave.getText()+"',256), '"+txtCorreo.getText()+"');";
 				int respuesta = conexion.altaUsuario(sentencia);
 
+				txtNombre.setText("");
+				txtClave.setText("");
+				txtConfirmarClave.setText("");
+				txtCorreo.setText("");
+				
 				dlgWindow.setLayout(new FlowLayout());
 				dlgWindow.setSize(180, 70);
 				dlgWindow.addWindowListener(this);

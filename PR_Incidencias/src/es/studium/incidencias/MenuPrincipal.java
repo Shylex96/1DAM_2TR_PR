@@ -20,22 +20,22 @@ public class MenuPrincipal implements ActionListener, WindowListener {
 	Menu menuUsuarios = new Menu("Usuarios");
 	Menu menuElementos = new Menu("Elementos");
 	Menu menuIncidencias = new Menu("Incidencias");
-	
+
 	// Items Menu Usuarios:
 	MenuItem menuUsuarioNuevo = new MenuItem("Nuevo");
 	MenuItem menuUsuariosListado = new MenuItem("Listado");
 	MenuItem menuUsuariosBaja = new MenuItem("Baja");
 	MenuItem menuUsuariosModificar = new MenuItem("Modificar");
-	
+
 	// Items Menu Elementos:
 	MenuItem menuElementosNuevo = new MenuItem("Nuevo");
 	MenuItem menuElementosListado = new MenuItem("Listado");
 	MenuItem menuElementosBaja = new MenuItem("Baja");
 	MenuItem menuElementosModificar = new MenuItem("Modificar");
-	
+
 	// Items Menu Incidencias:
-	
-	
+
+
 	MenuPrincipal (){
 		windowPrincipal.setLayout(new FlowLayout());
 
@@ -45,35 +45,35 @@ public class MenuPrincipal implements ActionListener, WindowListener {
 		menuUsuarios.add(menuUsuariosListado);
 		menuUsuarios.add(menuUsuariosBaja);
 		menuUsuarios.add(menuUsuariosModificar);
-		
+
 		menuElementos.add(menuElementosNuevo);
 		menuElementos.add(menuElementosListado);
 		menuElementos.add(menuElementosBaja);
 		menuElementos.add(menuElementosModificar);
-		
+
 		menuIncidencias.setEnabled(false);
 
 		menuUsuarioNuevo.addActionListener(this);
 		menuUsuariosListado.addActionListener(this);
 		menuUsuariosBaja.addActionListener(this);
 		menuUsuariosModificar.addActionListener(this);
-		
+
 		menuElementosNuevo.addActionListener(this);
 		menuElementosListado.addActionListener(this);
 		menuElementosBaja.addActionListener(this);
 		menuElementosModificar.addActionListener(this);
 
-		
+
 		barraMenu.add(menuUsuarios);
 		barraMenu.add(menuElementos);
 		barraMenu.add(menuIncidencias);
-		
+
 		windowPrincipal.setResizable(false);
 		windowPrincipal.setSize(400, 400);
 		windowPrincipal.setLocationRelativeTo(null);
 		windowPrincipal.setBackground(Color.orange);
 		windowPrincipal.addWindowListener(this);
-		
+
 		windowPrincipal.setVisible(true);
 	}
 
@@ -86,7 +86,7 @@ public class MenuPrincipal implements ActionListener, WindowListener {
 	{
 		System.exit(0);
 	}
-	
+
 	@Override
 	public void windowClosed(WindowEvent e) {}
 	@Override
@@ -99,10 +99,18 @@ public class MenuPrincipal implements ActionListener, WindowListener {
 	public void windowDeactivated(WindowEvent e) {}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		// Nuevo usuario
+
+		// Nuevos usuarios
 		if (e.getSource().equals(menuUsuarioNuevo)) {
 			new NuevoUsuario();
+		}
+		// Listado usuarios
+		else if (e.getSource().equals(menuUsuariosListado)) {
+			new ListadoUsuarios ();
+		}
+		// Baja usuarios
+		else if (e.getSource().equals(menuUsuariosBaja)) {
+			new BajaUsuarios ();
 		}
 	}
 }
