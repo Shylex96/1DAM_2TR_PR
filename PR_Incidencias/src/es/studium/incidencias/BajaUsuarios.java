@@ -7,6 +7,7 @@ import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Label;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -54,7 +55,15 @@ public class BajaUsuarios implements ActionListener, WindowListener {
 	@Override
 	public void windowClosing(WindowEvent e) 
 	{
-		windowBajaUsuario.setVisible(false);
+		if (dlgSeguro.isActive()) {
+			dlgSeguro.setVisible(false);
+		}else if (dlgConfirmacion.isActive()){
+			dlgConfirmacion.setVisible(false);
+			dlgSeguro.setVisible(false);
+			windowBajaUsuario.setVisible(false);
+		} else {
+			windowBajaUsuario.setVisible(false);
+		}
 	}
 
 	@Override
@@ -84,7 +93,7 @@ public class BajaUsuarios implements ActionListener, WindowListener {
 			if (choUsuarios.getSelectedIndex()!=0) {
 
 				// Diálogo visible de si estamos seguros de borrar.
-				lblEstarSeguro.setText("¿Seguro de eliminar a: " + "\n" +choUsuarios.getSelectedItem()+ "?");
+				lblEstarSeguro.setText("¿Seguro de eliminar a: " +choUsuarios.getSelectedItem()+ "?");
 				dlgSeguro.add(lblEstarSeguro);
 				btnSiSeguro.addActionListener(this);
 				dlgSeguro.add(btnSiSeguro);
@@ -111,7 +120,7 @@ public class BajaUsuarios implements ActionListener, WindowListener {
 				dlgConfirmacion.setBackground(Color.green);
 
 				dlgConfirmacion.add(lblConfirmacion);
-				lblConfirmacion.setText("Usuario: " +choUsuarios.getSelectedItem() + "\neliminado correctamente.");
+				lblConfirmacion.setText("Usuario: " +choUsuarios.getSelectedItem() + " eliminado correctamente.");
 				btnCerrarConfirmacion.addActionListener(this);
 				dlgConfirmacion.add(btnCerrarConfirmacion);
 				conexion.rellenarChoiceUsuarios(choUsuarios);
@@ -130,11 +139,14 @@ public class BajaUsuarios implements ActionListener, WindowListener {
 		} else if (e.getSource().equals(btnNoSeguro)) {
 
 			dlgSeguro.setVisible(false);
+			dlgConfirmacion.setVisible(false);
 		}
 
 		else if (e.getSource().equals(btnCerrarConfirmacion)) {
 			
 			dlgConfirmacion.setVisible(false);
+			dlgSeguro.setVisible(false);
+			windowBajaUsuario.setVisible(false);
 		}
 
 	}

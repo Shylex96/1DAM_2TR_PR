@@ -1,10 +1,8 @@
 package es.studium.incidencias;
 
 import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Frame;
-import java.awt.Label;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
@@ -112,5 +110,10 @@ public class MenuPrincipal implements ActionListener, WindowListener {
 		else if (e.getSource().equals(menuUsuariosBaja)) {
 			new BajaUsuarios ();
 		}
+		// Modificar usuarios
+		else if (e.getSource().equals(menuUsuariosModificar)) {
+			new ModificarUsuario ();
+		}
 	}
 }
+

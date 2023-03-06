@@ -132,4 +132,42 @@ public class Conexion {
 
 		}
 	}
+
+	public String getDatosEdicion(String idUsuarios)
+	{
+		String resultado = "";
+		String sentencia = "SELECT * FROM usuarios WHERE idUsuarios = " + idUsuarios;
+		try
+		{
+			// Crear una sentencia
+			statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			// Crear un objeto ResultSet para guardar lo obtenido
+			// y ejecutar la sentencia SQL
+			ResultSet resultSet = statement.executeQuery(sentencia);
+			resultSet.next();
+			resultado =(resultSet.getString("idUsuarios")+"-"+resultSet.getString("nombreUsuario")+"-"+resultSet.getString("claveUsuario")+"-"+resultSet.getString("correoUsuario"));
+		}
+		catch (SQLException sqle)
+		{
+			System.out.println("Error 8-"+sqle.getMessage());
+		}
+		return resultado;
+	}
+
+	public int modificarUsuario(String sentencia)
+	{
+		try
+		{
+			// Crear una sentencia
+			statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			// Ejecutar la sentencia SQL
+			statement.executeUpdate(sentencia);
+			return 0;
+		}
+		catch (SQLException sqle)
+		{
+			System.out.println("Error 9-"+sqle.getMessage());
+			return 1;
+		}
+	}
 }

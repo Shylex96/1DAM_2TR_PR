@@ -38,10 +38,6 @@ public class Login implements ActionListener, WindowListener, KeyListener {
 		windowLogin.setLocationRelativeTo(null);
 		windowLogin.setBackground(Color.orange);
 
-		// Escuchar para tecla enter:
-		txtUsuario.addKeyListener((KeyListener) this);
-		txtClave.addKeyListener((KeyListener) this);
-
 		windowLogin.add(lblUsuario);
 		//txtUsuario.setForeground(Color.red);
 		windowLogin.add(txtUsuario);
@@ -52,6 +48,10 @@ public class Login implements ActionListener, WindowListener, KeyListener {
 		windowLogin.add(btnAcceder);
 		btnAcceder.addActionListener(this);
 
+		// --- Key Listener ---
+		txtUsuario.addKeyListener(this);
+		txtClave.addKeyListener(this);
+		
 		windowLogin.setVisible(true);
 	}
 
@@ -109,19 +109,15 @@ public class Login implements ActionListener, WindowListener, KeyListener {
 
 
 		}
-
-
-
 	}
 
 
+
 	@Override
-	public void keyTyped(KeyEvent e){}
+	public void keyTyped(KeyEvent e) {}
 	@Override
-	public void keyReleased(KeyEvent e){}
-	@Override
-	public void keyPressed(KeyEvent e)
-	{
+	public void keyPressed(KeyEvent e) {
+
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			String usuario = txtUsuario.getText();
 			String clave = txtClave.getText();
@@ -147,8 +143,7 @@ public class Login implements ActionListener, WindowListener, KeyListener {
 		}
 
 	}
-
+	@Override
+	public void keyReleased(KeyEvent e) {}
 }
-
-
 
